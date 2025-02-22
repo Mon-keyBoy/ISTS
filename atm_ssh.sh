@@ -113,25 +113,25 @@ chattr +i /etc/nftables.conf
 systemctl start nftables
 systemctl enable nftables
 
-# Require signed kernel modules
+# # Require signed kernel modules
 # sed -i 's/\(vmlinuz.*\)/\1 module.sig_enforce=1 module.sig_unenforce=0/' /boot/grub/grub.cfg
 
-#disable cron
-systemctl stop cron
-systemctl disable cron
-chattr +i /etc/crontab
-chattr +i /etc/cron.d
-chattr +i /etc/cron.daily
-chattr +i /etc/cron.hourly
-chattr +i /etc/cron.monthly
-chattr +i /etc/cron.weekly
+# #disable cron
+# systemctl stop cron
+# systemctl disable cron
+# chattr +i /etc/crontab
+# chattr +i /etc/cron.d
+# chattr +i /etc/cron.daily
+# chattr +i /etc/cron.hourly
+# chattr +i /etc/cron.monthly
+# chattr +i /etc/cron.weekly
 
-#get rif of cups
-systemctl stop cups
-systemctl disable cups
-systemctl stop cups.service cups.socket cups.path
-systemctl disable cups.service cups.socket cups.path
-apt remove --purge -y cups
+# #get rif of cups
+# systemctl stop cups
+# systemctl disable cups
+# systemctl stop cups.service cups.socket cups.path
+# systemctl disable cups.service cups.socket cups.path
+# apt remove --purge -y cups
 
 # Script completion message
 echo "."
