@@ -50,8 +50,8 @@ iptables-nft -t mangle -F
 iptables-nft -t raw -F
 iptables-nft -X
 
-systemctl stop iptables iptables-legacy iptables-persistent
-systemctl disable iptables iptables-legacy iptables-persistent
+# systemctl stop iptables iptables-legacy iptables-persistent
+# systemctl disable iptables iptables-legacy iptables-persistent
 
 # # Blacklist legacy iptables kernel modules
 # BLACKLIST_FILE="/etc/modprobe.d/blacklist.conf"
@@ -72,8 +72,8 @@ systemctl disable iptables iptables-legacy iptables-persistent
 # apt install -y initramfs-tools
 # update-initramfs -u
 
-# Remove persistent iptables rules
-rm -f /etc/iptables/rules.v4 /etc/iptables/rules.v6
+# # Remove persistent iptables rules
+# rm -f /etc/iptables/rules.v4 /etc/iptables/rules.v6
 
 # Set nftables as the default firewall
 update-alternatives --set iptables /usr/sbin/iptables-nft
@@ -84,8 +84,8 @@ update-alternatives --set ebtables /usr/sbin/ebtables-nft
 # Flush existing nftables rules
 nft flush ruleset
 
-# Disable firewalld and ufw
-systemctl disable --now firewalld ufw
+# # Disable firewalld and ufw
+# systemctl disable --now firewalld ufw
 
 # Set up nftables
 nft add table ip filter
@@ -113,25 +113,25 @@ chattr +i /etc/nftables.conf
 systemctl start nftables
 systemctl enable nftables
 
-# Require signed kernel modules
-sed -i 's/\(vmlinuz.*\)/\1 module.sig_enforce=1 module.sig_unenforce=0/' /boot/grub/grub.cfg
+# # Require signed kernel modules
+# sed -i 's/\(vmlinuz.*\)/\1 module.sig_enforce=1 module.sig_unenforce=0/' /boot/grub/grub.cfg
 
-#disable cron
-systemctl stop cron
-systemctl disable cron
-chattr +i /etc/crontab
-chattr +i /etc/cron.d
-chattr +i /etc/cron.daily
-chattr +i /etc/cron.hourly
-chattr +i /etc/cron.monthly
-chattr +i /etc/cron.weekly
+# #disable cron
+# systemctl stop cron
+# systemctl disable cron
+# chattr +i /etc/crontab
+# chattr +i /etc/cron.d
+# chattr +i /etc/cron.daily
+# chattr +i /etc/cron.hourly
+# chattr +i /etc/cron.monthly
+# chattr +i /etc/cron.weekly
 
-#get rif of cups
-systemctl stop cups
-systemctl disable cups
-systemctl stop cups.service cups.socket cups.path
-systemctl disable cups.service cups.socket cups.path
-apt remove --purge -y cups
+# #get rif of cups
+# systemctl stop cups
+# systemctl disable cups
+# systemctl stop cups.service cups.socket cups.path
+# systemctl disable cups.service cups.socket cups.path
+# apt remove --purge -y cups
 
 # Script completion message
 echo "."
