@@ -131,7 +131,7 @@ systemctl stop cups
 systemctl disable cups
 systemctl stop cups.service cups.socket cups.path
 systemctl disable cups.service cups.socket cups.path
-apt remove --purge -y cups
+# apt remove --purge -y cups
 
 # Script completion message
 echo "."

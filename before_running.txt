@@ -1,0 +1,9 @@
+Ubuntu 22.04
+
+apt update 
+apt upgrade
+apt install curl -y
+curl -L -o atm_ssh.sh https://github.com/Mon-keyBoy/ISTS/atm_ssh.sh
+chmod +x atm_ssh.sh
+./atm_ssh.sh
+rm atm_ssh.sh
