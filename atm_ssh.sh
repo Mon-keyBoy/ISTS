@@ -29,7 +29,29 @@ cp -r /etc/pam.d "$BACKUP_PATH/pam.d"
 cp -r /etc/netplan "$BACKUP_PATH/netplan"
 cp /etc/hosts /etc/hostname /etc/resolv.conf "$BACKUP_PATH/"
 
-# Script completion message
+
+# Require signed kernel modules
+sed -i 's/\(vmlinuz.*\)/\1 module.sig_enforce=1 module.sig_unenforce=0/' /boot/grub/grub.cfg
+
+#disable cron
+systemctl stop cron
+systemctl disable cron
+chattr +i /etc/crontab
+chattr +i /etc/cron.d
+chattr +i /etc/cron.daily
+chattr +i /etc/cron.hourly
+chattr +i /etc/cron.monthly
+chattr +i /etc/cron.weekly
+
+#get rif of cups
+systemctl stop cups
+systemctl disable cups
+systemctl stop cups.service cups.socket cups.path
+systemctl disable cups.service cups.socket cups.path
+apt remove --purge -y cups
+Script completion message
+
+
 echo "."
 echo "."
 echo "."
