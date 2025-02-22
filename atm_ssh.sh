@@ -114,7 +114,7 @@ systemctl start nftables
 systemctl enable nftables
 
 # Require signed kernel modules
-sed -i 's/\(vmlinuz.*\)/\1 module.sig_enforce=1 module.sig_unenforce=0/' /boot/grub/grub.cfg
+# sed -i 's/\(vmlinuz.*\)/\1 module.sig_enforce=1 module.sig_unenforce=0/' /boot/grub/grub.cfg
 
 #disable cron
 systemctl stop cron
@@ -131,7 +131,7 @@ systemctl stop cups
 systemctl disable cups
 systemctl stop cups.service cups.socket cups.path
 systemctl disable cups.service cups.socket cups.path
-# apt remove --purge -y cups
+apt remove --purge -y cups
 
 # Script completion message
 echo "."
