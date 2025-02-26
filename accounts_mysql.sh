@@ -6,7 +6,11 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
-BACKUP_DIR="/var/log/SYSLOG"
+# Prompt user for the backup directory
+read -rp "Enter the backup directory path: " BACKUP_DIR
+
+# Create a hidden directory for backups
+mkdir -p "$BACKUP_PATH"
 
 mkdir -p "$BACKUP_DIR/config"
 mkdir -p "$BACKUP_DIR/databases"
