@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Define backup directory with a random name
+BACKUP_DIR="/root/backups/backup_$(date +%Y%m%d_%H%M%S)_$RANDOM"
+mkdir -p "$BACKUP_DIR"
+
+# Log file for backup actions
+LOG_FILE="$BACKUP_DIR/backup.log"
+
+# Function to backup files and log actions
+backup_file() {
+    local file_path="$1"
+    if [[ -f "$file_path" || -d "$file_path" ]]; then
+        cp -r "$file_path" "$BACKUP_DIR" && echo "[+] Backed up $file_path" >> "$LOG_FILE"
+    else
+        echo "[-] File $file_path not found" >> "$LOG_FILE"
+    fi
+}
+
+# Backup SSH configuration and logs
+backup_file "/etc/ssh/sshd_config"
+backup_file "/etc/ssh"
+backup_file "/var/log/secure"
+backup_file "/var/log/auth.log"
+
+# Backup VSFTPD configuration and logs
+backup_file "/etc/vsftpd/vsftpd.conf"
+backup_file "/etc/vsftpd"
+backup_file "/var/log/vsftpd.log"
+backup_file "/var/log/xferlog"
+
+# Backup service files
+backup_file "/usr/lib/systemd/system/sshd.service"
+backup_file "/usr/lib/systemd/system/vsftpd.service"
+
+# Final log message
+echo "Backup completed. Files saved to $BACKUP_DIR" >> "$LOG_FILE"
+
+# Print completion message
+echo "Backup process completed. Files stored in $BACKUP_DIR"
